@@ -75,10 +75,9 @@ void Form_contact::on_pushButton_delete_phones_clicked()
 void Form_contact::on_pushButton_save_contact_clicked()
 {
     temporaryVec.clear();
-    for (int i = /*ui->tableWidgetContacts->rowCount()-1*/ 0 ; i < ui->tableWidgetContacts->rowCount(); i ++){//цикл начинается со строчки, которая была последней до того,
-    Phone * p = new Phone; //как мы добавили новую
-    //int i=ui->tableWidgetContacts->rowCount()-1;
-    p->type = ui->tableWidgetContacts->item(i,0)->text(); //остается научиться передавать в MainWindow и сделать append нашему telArr
+    for (int i = 0 ; i < ui->tableWidgetContacts->rowCount(); i ++){
+    Phone * p = new Phone;
+    p->type = ui->tableWidgetContacts->item(i,0)->text();
     p->number = ui->tableWidgetContacts->item(i,1)->text();
     temporaryVec.append(p);
     }
@@ -97,12 +96,7 @@ int Form_contact::getChosenContact () {
 }
 void Form_contact::on_pushButton_contact_OK_clicked()
 {
-    //this->setChosenContact(-1);
-    //this->close(); //здесь закрываем форму // теперь мы закрываем ее в слоте, который открывается по сгналу
-    //temporaryVec = getTemporaryVec();
-    emit sendContact(); //посылаем сигнал
-    //ui->tableWidgetContacts->clear();
-    //ui->tableWidgetContacts->setRowCount( 0);
+    emit sendContact();
 }
 
 QVector <Phone *>  Form_contact::getTemporaryVec(){

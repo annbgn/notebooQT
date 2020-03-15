@@ -7,12 +7,6 @@ Form_notes::Form_notes(QWidget *parent) :
     ui(new Ui::Form_notes)
 {
     ui->setupUi(this);
-    //temporaryNote = new Note();
-    /*
-     *
-    temporaryNote->title = "";
-    temporaryNote->body = "";
-    */
 }
 
 Form_notes::~Form_notes()
@@ -63,10 +57,7 @@ void Form_notes::on_pushButton_note_OK_clicked() {
     qDebug () << "Title1  in on_pushButton_note_OK_clicked: " << temporaryNote->title;
 temporaryNote = getWholeNote();
 qDebug () << "Title2  in on_pushButton_note_OK_clicked: " << temporaryNote->title;
-    emit sendNote(); //посылаем сигнал
-    //this->setChosenNote(-1);
-    //this->close(); //здесь закрываем форму
-//temporaryNote = nullptr;
+    emit sendNote();
 }
 
 void Form_notes::setTemporaryNote (Note * N) {

@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-     w.showLists(); //заполним listWiget'ы
+    w.showLists();
     w.show();
 
     return a.exec();

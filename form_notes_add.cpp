@@ -14,7 +14,7 @@ Form_notes_add::~Form_notes_add()
     delete ui;
 }
 
-void Form_notes_add::on_pushButton_add_new_note_clicked() //начала делать добавление, поняла, что не могу передать значения и вспомнила про сигналы(so it's not done)
+void Form_notes_add::on_pushButton_add_new_note_clicked()
 {
      QString someTitle, someBody;
      someTitle=ui->lineEdit_note_title->text();
