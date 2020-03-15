@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1119</width>
+    <height>804</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Notebook</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>1051</width>
+      <height>691</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab_contacts">
+     <attribute name="title">
+      <string>Контакты</string>
+     </attribute>
+     <widget class="QListWidget" name="listWidget_contacts">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>1000</width>
+        <height>400</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_delete_contact">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>450</y>
+        <width>150</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 135, 135);</string>
+      </property>
+      <property name="text">
+       <string>Удалить контакт</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_AddDialCont">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>450</y>
+        <width>150</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(135, 215, 255);</string>
+      </property>
+      <property name="text">
+       <string>Добавить контакт</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_notes">
+     <attribute name="title">
+      <string>Заметки</string>
+     </attribute>
+     <widget class="QListWidget" name="listWidget_notes">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>1000</width>
+        <height>400</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_delete_note">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>450</y>
+        <width>150</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 135, 135);</string>
+      </property>
+      <property name="text">
+       <string>Удалить заметку</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_addDialog">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>450</y>
+        <width>150</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(135, 215, 255);</string>
+      </property>
+      <property name="text">
+       <string>Добавить заметку</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1119</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSave">
+    <property name="title">
+     <string>Сохранить</string>
+    </property>
+    <addaction name="actionsave_contacts"/>
+    <addaction name="actionsave_notes"/>
+   </widget>
+   <widget class="QMenu" name="menuLoad">
+    <property name="title">
+     <string>Загрузить</string>
+    </property>
+    <addaction name="actionboth_notes_and_contacts"/>
+   </widget>
+   <addaction name="menuSave"/>
+   <addaction name="menuLoad"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionsave_notes">
+   <property name="text">
+    <string>Сохранить заметки</string>
+   </property>
+  </action>
+  <action name="actionsave_contacts">
+   <property name="text">
+    <string>Сохранить контакты</string>
+   </property>
+  </action>
+  <action name="actionboth_notes_and_contacts">
+   <property name="text">
+    <string>Контакты и заметки</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

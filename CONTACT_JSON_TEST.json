@@ -1,0 +1,66 @@
+{"contacts":[
+    {
+        "name": "Villena",
+        "telArr": [
+        ]
+    },
+    {
+        "name": "Ksu",
+        "telArr": [
+        ]
+    },
+    {
+        "name": "Mary",
+        "telArr": [
+            {
+                "number": "444 1",
+                "type": "m 1"
+            }
+        ]
+    },
+    {
+        "name": "Victoria",
+        "telArr": [
+            {
+                "number": "555 1",
+                "type": "v 1"
+            },
+            {
+                "number": "555 2",
+                "type": "v 2"
+            },
+            {
+                "number": "555 3",
+                "type": "v 3"
+            }
+        ]
+    },
+    {
+        "name": "Liz",
+        "telArr": [
+        ]
+    },
+    {
+        "name": "Keira",
+        "telArr": [
+            {
+                "number": "777 1",
+                "type": "ke 1"
+            }
+        ]
+    },
+    {
+        "name": "ann",
+        "telArr": [
+            {
+                "number": "selmflfemslmg4",
+                "type": "ksfokspofkespok"
+            },
+            {
+                "number": "123456",
+                "type": "cell "
+            }
+        ]
+    }
+]
+}
