@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     fn = new Form_notes ();
     fc = new Form_contact ();
     connect(ui->listWidget_notes, SIGNAL(itemDoubleClicked(QListWidgetItem *)), fn, SLOT(show()));
-    //connect(ui->listWidget_contacts, SIGNAL(itemDoubleClicked(QListWidgetItem *)), fc, SLOT(setourrows()));
     connect(ui->listWidget_contacts, SIGNAL(itemDoubleClicked(QListWidgetItem *)), fc, SLOT(show()));
     connect (fn, SIGNAL(sendNote()), this, SLOT(recieveNote()));
     connect (fc, SIGNAL(sendContact()), this, SLOT(recieveContact()));
@@ -81,15 +80,13 @@ void MainWindow::on_pushButton_add_note_clicked()
 
 void MainWindow::readFromNoteFileJson ()
 {
-    //QMessageBox::information(nullptr, "notes","choose json file for notes");
-    notePath = QFileDialog::getOpenFileName(nullptr, "choose notes json", nautilusPATH, "*.json" );//nullptr это потому что вызываем из главного окна, а так это како-то указатель родителя
+    notePath = QFileDialog::getOpenFileName(nullptr, "choose notes json", nautilusPATH, "*.json" );
     noteFile.setFileName(notePath);
     if (noteFile.open(QIODevice::ReadOnly|QFile::Text)) {
         doc = QJsonDocument::fromJson(QByteArray(noteFile.readAll()), &docError);
         noteFile.close();
 
         docArr = QJsonValue(doc.object().value("notes")).toArray();
-       // qDebug()<<"->"<<docArr;
 
         if (docError.errorString().toInt()==QJsonParseError::NoError) {
 
@@ -97,17 +94,10 @@ void MainWindow::readFromNoteFileJson ()
             for (int i=0; i<docArr.count(); i++) {
 
               QJsonObject  curr_obj = docArr[i].toObject();
-             //qDebug()<<"->"<<curr_obj;
 
              Note *newNote=new Note(curr_obj.value("title").toString(), curr_obj.value("body").toString());
              newBook->notes.push_back(newNote);
-
-                //qDebug()<<"->"<<curr_obj.value("title").toString()<<" "<<curr_obj.value("body").toString();
-
-
             }
-            //qDebug()<<"->"<<newBook->notes[0]->title;
-
       }
         else {
             QMessageBox::information(nullptr, "info", "json parse error, dunno how to fix it");
@@ -120,15 +110,13 @@ void MainWindow::readFromNoteFileJson ()
 
 
 void MainWindow::readFromContactFileJson (){
-    //QMessageBox::information(nullptr, "notes","chose json file for contacts");
-    contactPath = QFileDialog::getOpenFileName(nullptr, "choose contacts json", nautilusPATH, "*.json" );//nullptr это потому что вызываем из главного окна, а так это како-то указатель родителя
+    contactPath = QFileDialog::getOpenFileName(nullptr, "choose contacts json", nautilusPATH, "*.json" );
     contactFile.setFileName(contactPath);
     if (contactFile.open(QIODevice::ReadOnly|QFile::Text)) {
         doc = QJsonDocument::fromJson(QByteArray(contactFile.readAll()), &docError);
         contactFile.close();
 
         docArr = QJsonValue(doc.object().value("contacts")).toArray();
-       // qDebug()<<"->"<<docArr;
 
         if (docError.errorString().toInt()==QJsonParseError::NoError) {
 
@@ -136,7 +124,6 @@ void MainWindow::readFromContactFileJson (){
             for (int i=0; i<docArr.count(); i++) {
 
               QJsonObject  curr_obj = docArr[i].toObject();
-             //qDebug()<<"->"<<curr_obj;
 
 QString Name = curr_obj.value("name").toString();
 QVector <Phone*> PhoneVec;
@@ -150,19 +137,7 @@ for (int j = 0 ; j < telArr.size(); j ++)
 
             Contact *newContact=new Contact(Name, PhoneVec);
              newBook->contacts.push_back(newContact);
-
-              // qDebug()<<"->"<<curr_obj.value("name").toString()<<" "<<curr_obj.value("telArr").toString();
-
-
             }
-
-           // for (int k = 0 ; k < newBook->contacts.size(); k ++){
-            //qDebug()<<"->"<<newBook->contacts[k]->name;
-
-            //qDebug()<<"->"<<newBook->contacts[k]->telArr[1]->type;
-            // qDebug()<<"->"<<newBook->contacts[k]->telArr[1]->number;
-           //}
-
       }
         else {
             QMessageBox::information(nullptr, "info", "json parse error, dunno how to fix it");
@@ -178,25 +153,18 @@ void MainWindow::on_listWidget_notes_itemDoubleClicked(QListWidgetItem *item)
     QString Title = item->text();
     qDebug()<<"Title: "<<Title;
 
-    //Form_notes *w = new Form_notes;
     int row=ui->listWidget_notes->row(item);
 
     fn->setTitle(newBook->notes[row]->title);
-    //fn->setTitle(Title);
     fn->setBody(newBook->notes[row]->body);
 
     fn->setChosenNote(row);
 
     fn->setWholeNote(newBook->notes[row]);
-
-    //fn->show(); //теперь это не нужно, т.к. есть connect
 }
 
 void MainWindow::on_listWidget_contacts_itemDoubleClicked(QListWidgetItem *item)
 {
-     //QString Title = item->text();
-
-     //Form_contact *w = new Form_contact;
      int row=ui->listWidget_contacts->row(item);
 
     fc->setName( newBook->contacts[row]->name);
@@ -211,32 +179,30 @@ for (int j = 0 ; j < newBook->contacts[row]->telArr.size(); j ++)//вывод в
 
    }
     }
-//fc->setChosenContact(row);
+
 fc->setChosenContact(row);
- //fc->show();
 
 }
 
 void MainWindow::on_pushButton_delete_note_clicked()
 {
-    if (ui->listWidget_notes->count() != 0)//проверяю, что не пуст, инае вылетает
+    if (ui->listWidget_notes->count() != 0)
     {
         int row=ui->listWidget_notes->currentRow();
         QListWidgetItem * i = ui->listWidget_notes->takeItem(row);
-        if ( i != nullptr) // эта проверка, чтобы не вылетало, когда нажимаем на кнопку, но ни один элемент не выделен
+        if ( i != nullptr)
         {
-            //delete ui->listWidget_notes->takeItem(row);
             this->newBook->notes.remove(row);
         }
     }
 }
 void MainWindow::on_pushButton_delete_contact_clicked()
 {
-    if (ui->listWidget_contacts->count() != 0)//проверяю, что не пуст, инае вылетает
+    if (ui->listWidget_contacts->count() != 0)
     {
         int row=ui->listWidget_contacts->currentRow();
         QListWidgetItem * i = ui->listWidget_contacts->takeItem(row);
-        if ( i != nullptr) // эта проверка, чтобы не вылетало, когда нажимаем на кнопку, но ни один элемент не выделен
+        if ( i != nullptr)
         {
         this->newBook->contacts.remove(row);
         }
@@ -272,46 +238,29 @@ void MainWindow::on_pushButton_AddDialCont_clicked()
             ui->listWidget_contacts->addItem("No name");
         }
          QVector <Phone*> PhoneVec;
+            PhoneVec=dialogCont.typeNumsFunc();
 
-        //PhoneVec.resize(dialogCont.rowNum());//не получилось добавлять несколько номеров
-        //for(int v=0;v<PhoneVec.size();v++)
-        //{
-         //Phone * newPhone = new Phone(dialogCont.type(),dialogCont.number());
-
-         //PhoneVec.push_back(newPhone);
-            PhoneVec=dialogCont.typeNumsFunc();     //а вот это уже все получилось)))
-            //qDebug() << "type "<< PhoneVec[PhoneVec.size()]->type << "num " << PhoneVec[PhoneVec.size()]->number;
-            if ((PhoneVec[PhoneVec.size()-1]->number =="") && (PhoneVec[PhoneVec.size()-1]->type== ""))  //на случай, если после введения  последнего номера юзер снова нажал на кнопку добавить номер, и поле обновилось, и пустая строка превратилась в последний элемент вектора
+            if ((PhoneVec[PhoneVec.size()-1]->number =="") && (PhoneVec[PhoneVec.size()-1]->type== ""))
             PhoneVec.pop_back();
-        //}
+
          Contact *newAddedContact=new Contact(dialogCont.name(), PhoneVec);
           newBook->contacts.push_back(newAddedContact);
     }
-    /*
-    for (int i=0;i<newBook->contacts.size();i++){
-    qDebug()<<"Names: "<<newBook->contacts[i]->name;
-     for (int j=0;j<newBook->contacts[i]->telArr.size();j++){
-    qDebug()<<"Types: "<<newBook->contacts[i]->telArr[j]->type;
-    qDebug()<<"Numbers: "<<newBook->contacts[i]->telArr[j]->number;
-    }
-    //сделала consolePrintNotes
-    */
 }
 
 
 void MainWindow::on_actionsave_notes_triggered()
 {
-    //notePath = QFileDialog::getOpenFileName(nullptr, "chose notes json", nautilusPATH, "*.json" );
     noteFile.setFileName(notePath); //сохраняем в тот же файл, который и открывали
     if (noteFile.open (QIODevice::WriteOnly)) {
         QList <QVariantMap> mapList = {};
         QVariantMap  map;
         for (int i = 0; i<this->newBook->notes.size(); i++) {
-            map.insert("title", this->newBook->notes[i]->title ); //в этом месте в конце еще надо приводить к нужному типу, но у нас все равно строка
+            map.insert("title", this->newBook->notes[i]->title );
             map.insert("body", this->newBook->notes[i]->body );
             mapList.append(map);
         }
-                QJsonArray docToWrite; // = doc.object().value("notes").toArray();
+                QJsonArray docToWrite;
                 for (int i = 0; i<this->newBook->notes.size(); i++) {
                     QJsonObject json = QJsonObject::fromVariantMap(mapList[i]);
                 docToWrite.append(json);
@@ -356,7 +305,7 @@ void MainWindow::on_actionsave_contacts_triggered()
               map1.insert("telArr", newMap);
               mapList1.append(map1);
         }
-                QJsonArray docToWrite1; // = doc.object().value("contacts").toArray();
+                QJsonArray docToWrite1;
                 for (int m = 0; m<this->newBook->contacts.size(); m++)
                 {
                     QJsonObject json2 = QJsonObject::fromVariantMap(mapList1[m]);
@@ -410,17 +359,11 @@ void  MainWindow::recieveContact () {
 
     QVector <Phone *> v = fc->getTemporaryVec();
     int row = fc->getChosenContact();
-    //newBook->contacts[row]->telArr.clear(); // - или это
     newBook->contacts[row]->telArr = v;
     newBook->contacts[row]->name = fc->getName();
     fc->temporaryVec.clear();
     setListContacts();
     fc->setChosenContact(-1);
     fc->close();
-    //QTableWidget * wid = fc->getTable();
-    //wid->clear();
-    //wid->setRowCount( 0);
-    //on_actionsave_contacts_triggered(); // - или это
-
 }
 
